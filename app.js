@@ -1,40 +1,41 @@
+require("dotenv").config();
 const express = require("express");
+
 const usersRouter = require("./routes/users");
 const categoriesRouter = require("./routes/categories");
 const productsRouter = require("./routes/products");
 const transactionsRouter = require("./routes/transactions");
+const authRouter = require("./routes/auth"); 
+const appError = require("./utils/appError");
+
+const errorHandler = require("./middleware/errorHandler"); // import error handler
 
 const app = express();
 const { testConnection } = require("./config/database");
 
 app.use(express.json());
 
+// routes
+app.use("/auth", authRouter);      
 app.use("/users", usersRouter);
 app.use("/categories", categoriesRouter);
 app.use("/products", productsRouter);
-
-// JOIN endpoint - products dengan category dan seller
-const products = require("./controllers/products");
-app.get("/products-with-category", products.getAllWithCategory);
 app.use("/transactions", transactionsRouter);
 
-// Handle 404
+// 404 handler — format konsisten dengan errorHandler
 app.use((req, res) => {
   res.status(404).json({
-    code: 404,
+    status: "error",
     message: "Route tidak ditemukan",
   });
 });
 
-// Handle 500
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
-    code: 500,
-    message: "Internal server error",
-    error: err.message,
-  });
+app.use((req, res, next) => {
+  next(new appError('${req.method} ${req.originalUrl} tidak ditemukan', 404));
 });
+
+// global error handler
+app.use(errorHandler);
 
 const start = async () => {
   await testConnection();

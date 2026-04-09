@@ -1,7 +1,10 @@
+const { validationResult } = require("express-validator");
 const ProductModel = require("../models/products");
+const appError = require("../utils/appError");
+// const redis = require("../config/redis");
 
 const ProductController = {
-  getAll: async (req, res) => {
+  getAll: async (req, res, next) => {
     try {
       const products = await ProductModel.findAll();
       res.json({

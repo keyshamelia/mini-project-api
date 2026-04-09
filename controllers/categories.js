@@ -3,9 +3,11 @@ const CategoryModel = require("../models/categories");
 const CategoryController = {
   getAll: async (req, res) => {
     try {
+      const CACHE_KEY = "categories_all";
       const categories = await CategoryModel.findAll();
       res.json({
         code: 200,
+        source: "database",
         message: "Successfully get categories",
         data: categories,
       });

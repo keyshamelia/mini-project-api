@@ -16,28 +16,28 @@ dibangun menggunakan Node.js dan Express.js, terhubung ke database MySQL.
 ## Struktur Folder
 ```
 mini-pro-api/
-├── config/
+├── config/ [koneksi database nya]
 │   └── database.js
-├── controllers/
+├── controllers/ [ini tuhh sebenernya server yang bakal muncul pas kita demo di postman]
 │   ├── categories.js
 │   ├── products.js
 │   ├── transactions.js
 │   └── users.js
-├── models/
+├── models/ [isinya script koneksi ke database sql]
 │   ├── categories.js
 │   ├── products.js
 │   ├── transactions.js
 │   └── users.js
-├── routes/
+├── routes/ [berisi semua endpoint dan request di postman]
 │   ├── categories.js
 │   ├── products.js
 │   ├── transactions.js
 │   └── users.js
 ├── .env
 ├── .gitignore
-├── app.js
-├── database.sql
-└── package.json
+├── app.js [nah disini tuh isi dari semua server di mulai, dan memanggil semua nya disini]
+├── database.sql [tapi kalau mau bikin entitas baru ya harus bikin table dulu di SQL nya baru di bungkus]
+└── package.json [isinya library semua yang sudah di install npm run dev untuk menjalankan node.js]
 ```
 
 ## Cara Jalanin Project

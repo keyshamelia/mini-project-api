@@ -1,11 +1,16 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const products = require("../controllers/products");
+const ProductController = require('../controllers/products');
+const { validateToken } = require('../middleware/validateAuth');
 
-router.get("/", products.getAll);
-router.get("/:id", products.getById);
-router.post("/", products.store);
-router.put("/:id", products.update);
-router.delete("/:id", products.destroy);
+// tidak perlu token
+router.get('/', ProductController.getAll);
+router.get('/with-category', ProductController.getAllWithCategory);
+router.get('/:id', ProductController.getById);
+
+// ini perlu token - sesuai guideline
+router.post('/', validateToken, ProductController.store);
+router.put('/:id', validateToken, ProductController.update);
+router.delete('/:id', validateToken, ProductController.destroy);
 
 module.exports = router;

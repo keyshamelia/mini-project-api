@@ -1,4 +1,7 @@
+// koneksi ke database SQL menggunakan createPool
+
 require("dotenv").config();
+const { createPool } = require("mysql2")
 const mysql = require("mysql2/promise");
 
 const pool = mysql.createPool({
@@ -8,6 +11,7 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME,
   port: process.env.DB_PORT,
 });
+
 
 const testConnection = async () => {
   try {

@@ -33,6 +33,21 @@ const TransactionController = {
     }
   },
 
+  // tambah ini aja di dalam TransactionController object, setelah getById
+
+getDetail: async (req, res) => {
+  try {
+    const transactions = await TransactionModel.findAllDetail();
+    res.json({
+      code: 200,
+      message: "Successfully get transactions detail",
+      data: transactions,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+},
+
   store: async (req, res) => {
     try {
       const { user_id, product_id, total_harga, status } = req.body;

@@ -104,6 +104,20 @@ const UserController = {
       res.status(500).json({ message: error.message });
     }
   },
+
+  // PINDAHIN KE SINI (DI DALEM OBJECT)
+  getSellerProductCount: async (req, res) => {
+    try {
+      const data = await UserModel.findSellerProductCount();
+      res.json({
+        code: 200,
+        message: "Successfully get seller product count",
+        data,
+      });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
 };
 
 module.exports = UserController;
